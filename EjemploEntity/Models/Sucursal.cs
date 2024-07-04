@@ -5,7 +5,7 @@ namespace EjemploEntity.Models;
 
 public partial class Sucursal
 {
-    public double? SucursalId { get; set; }
+    public int SucursalId { get; set; }
 
     public string? SucursalNombre { get; set; }
 
@@ -13,5 +13,5 @@ public partial class Sucursal
 
     public DateTime? FechaHoraReg { get; set; }
 
-    public double? CiudadId { get; set; }
+    public int CiudadId { get; set; }
 }

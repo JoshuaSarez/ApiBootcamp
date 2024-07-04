@@ -17,12 +17,12 @@ namespace EjemploEntity.Controllers
 
         [HttpGet]
         [Route("GetVentaCliente")]
-        public async Task<Respuesta> GetVentaCliente(string? numFact, string? fecha, string? vendedor, double? precio)
+        public async Task<Respuesta> GetVentaCliente(string? numFact, string? fecha, string? vendedor, double? precio, int clienteId)
         {
             var respuesta = new Respuesta();
             try
             {
-                respuesta = await _ventas.GetVentaCliente(numFact, fecha, vendedor, precio);
+                respuesta = await _ventas.GetVentaCliente(numFact, fecha, vendedor, precio, clienteId);
             }
             catch (Exception)
             {

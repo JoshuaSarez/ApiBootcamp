@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\bryan\\source\\repos\\EjemploEntity\\EjemploEntity\\EjemploEntity.csproj": {}
+    "C:\\Users\\bryan\\source\\repos\\EjemploEntity\\ApiBootcamp\\EjemploEntity\\EjemploEntity.csproj": {}
   },
   "projects": {
-    "C:\\Users\\bryan\\source\\repos\\EjemploEntity\\EjemploEntity\\EjemploEntity.csproj": {
+    "C:\\Users\\bryan\\source\\repos\\EjemploEntity\\ApiBootcamp\\EjemploEntity\\EjemploEntity.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\bryan\\source\\repos\\EjemploEntity\\EjemploEntity\\EjemploEntity.csproj",
+        "projectUniqueName": "C:\\Users\\bryan\\source\\repos\\EjemploEntity\\ApiBootcamp\\EjemploEntity\\EjemploEntity.csproj",
         "projectName": "EjemploEntity",
-        "projectPath": "C:\\Users\\bryan\\source\\repos\\EjemploEntity\\EjemploEntity\\EjemploEntity.csproj",
+        "projectPath": "C:\\Users\\bryan\\source\\repos\\EjemploEntity\\ApiBootcamp\\EjemploEntity\\EjemploEntity.csproj",
         "packagesPath": "C:\\Users\\bryan\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\bryan\\source\\repos\\EjemploEntity\\EjemploEntity\\obj\\",
+        "outputPath": "C:\\Users\\bryan\\source\\repos\\EjemploEntity\\ApiBootcamp\\EjemploEntity\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\bryan\\AppData\\Roaming\\NuGet\\NuGet.Config",

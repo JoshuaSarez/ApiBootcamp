@@ -5,7 +5,7 @@ namespace EjemploEntity.Models;
 
 public partial class Categorium
 {
-    public double? CategId { get; set; }
+    public int CategId { get; set; }
 
     public string? CategNombre { get; set; }
 
