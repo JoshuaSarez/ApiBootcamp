@@ -1,6 +1,7 @@
 ﻿using EjemploEntity.DTOs;
 using EjemploEntity.Interface;
 using EjemploEntity.Models;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
 namespace EjemploEntity.Services
@@ -96,6 +97,36 @@ namespace EjemploEntity.Services
                 
 			}
 			return respuesta;
+        }
+
+        public async Task<Respuesta> PostVenta(Venta venta)
+        {
+            var respuesta = new Respuesta();
+            try
+            {
+                
+            }
+            catch (Exception ex)
+            {
+                respuesta.Cod = "999";
+                respuesta.Mensaje = $"Se presento un error:  {ex.Message}"; ;
+            }
+            return respuesta;
+        }
+
+        public async Task<Respuesta> PutVenta(Venta venta)
+        {
+            var respuesta = new Respuesta();
+            try
+            {
+                
+            }
+            catch (Exception ex)
+            {
+                respuesta.Cod = "999";
+                respuesta.Mensaje = $"Se presento un error:  {ex.Message}";
+            }
+            return respuesta;
         }
     }
 }
