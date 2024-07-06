@@ -104,7 +104,16 @@ namespace EjemploEntity.Services
             var respuesta = new Respuesta();
             try
             {
-                
+                var query = _context.Ventas.OrderByDescending(x => x.IdFactura).Select(x => x.IdFactura).FirstOrDefault();
+
+                venta.IdFactura = Convert.ToInt32(query) + 1;
+                venta.FechaHora = DateTime.Now;
+
+                _context.Ventas.Add(venta);
+                await _context.SaveChangesAsync();
+
+                respuesta.Cod = "000";
+                respuesta.Mensaje = "OK";
             }
             catch (Exception ex)
             {
@@ -114,12 +123,35 @@ namespace EjemploEntity.Services
             return respuesta;
         }
 
-        public async Task<Respuesta> PutVenta(Venta venta)
+        //public async Task<Respuesta> PutVenta(Venta venta)
+        //{
+        //    var respuesta = new Respuesta();
+        //    try
+        //    {
+                
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        respuesta.Cod = "999";
+        //        respuesta.Mensaje = $"Se presento un error:  {ex.Message}";
+        //    }
+        //    return respuesta;
+        //}
+        public async Task<Respuesta> GetVenta()
         {
             var respuesta = new Respuesta();
             try
             {
-                
+                var query = _context.Ventas.Where(x=> x.Precio == 100);
+                respuesta.Cod = "000";
+                respuesta.Data = await query
+                    .GroupBy(x=> x.Precio)
+                    .Select(g=> new 
+                    { 
+                        cantidadRegistros = g.Count(), 
+                        vConsultado = g.Key
+                    }).ToArrayAsync();
+                respuesta.Mensaje = "OK";
             }
             catch (Exception ex)
             {
