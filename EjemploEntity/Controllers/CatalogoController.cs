@@ -1,5 +1,6 @@
 ﻿using EjemploEntity.Interface;
 using EjemploEntity.Models;
+using EjemploEntity.Utilitarios;
 using Microsoft.AspNetCore.Mvc;
 
 namespace EjemploEntity.Controllers
@@ -9,8 +10,9 @@ namespace EjemploEntity.Controllers
     public class CatalogoController : Controller
     {
 		private readonly ICatalogo _catalogo;
+        private ControlError Log = new ControlError();
 
-		public CatalogoController(ICatalogo catalogo)
+        public CatalogoController(ICatalogo catalogo)
         {
             this._catalogo = catalogo;
         }
@@ -24,11 +26,10 @@ namespace EjemploEntity.Controllers
 			{
 				respuesta = await _catalogo.GetCategoria();
 			}
-			catch (Exception)
+			catch (Exception ex)
 			{
-
-				throw;
-			}
+                Log.LogErrorMethods("CatalogoController", "GetCategoria", ex.Message);
+            }
 			return respuesta;
         }
 
@@ -41,10 +42,9 @@ namespace EjemploEntity.Controllers
             {
                 respuesta = await _catalogo.GetMarca();
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-
-                throw;
+                Log.LogErrorMethods("CatalogoController", "GetMarca", ex.Message);
             }
             return respuesta;
         }
@@ -58,10 +58,9 @@ namespace EjemploEntity.Controllers
             {
                 respuesta = await _catalogo.GetModelo();
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-
-                throw;
+                Log.LogErrorMethods("CatalogoController", "GetModelo", ex.Message);
             }
             return respuesta;
         }
@@ -75,10 +74,9 @@ namespace EjemploEntity.Controllers
             {
                 respuesta = await _catalogo.GetSucursal();
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-
-                throw;
+                Log.LogErrorMethods("CatalogoController", "GetSucursal", ex.Message);
             }
             return respuesta;
         }

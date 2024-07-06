@@ -94,7 +94,7 @@ namespace EjemploEntity.Services
 			catch (Exception ex)
 			{
                 respuesta.Cod = "999";
-                Log.LogErrorMethods("GetVentaCliente", ex.Message);
+                Log.LogErrorMethods("VentaService", "GetVentaCliente", ex.Message);
                 
 			}
 			return respuesta;
@@ -120,7 +120,7 @@ namespace EjemploEntity.Services
             {
                 respuesta.Cod = "999";
                 respuesta.Mensaje = $"Se presento un error comunicase con el departamento de sistemas ";
-                Log.LogErrorMethods("PostVenta", ex.Message);
+                Log.LogErrorMethods("VentaService", "PostVenta", ex.Message);
             }
             return respuesta;
         }
@@ -159,7 +159,7 @@ namespace EjemploEntity.Services
             {
                 respuesta.Cod = "999";
                 respuesta.Mensaje = $"Se presento un error comunicase con el departamento de sistemas ";
-                Log.LogErrorMethods("GetVenta", ex.Message);
+                Log.LogErrorMethods("VentaService", "GetVenta", ex.Message);
             }
             return respuesta;
         }
