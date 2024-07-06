@@ -5,7 +5,7 @@ namespace EjemploEntity.Models;
 
 public partial class Producto
 {
-    public int? ProductoId { get; set; }
+    public int ProductoId { get; set; }
 
     public string? ProductoDescrip { get; set; }
 
@@ -15,9 +15,9 @@ public partial class Producto
 
     public double? Precio { get; set; }
 
-    public double? CategId { get; set; }
+    public int CategId { get; set; }
 
-    public double? MarcaId { get; set; }
+    public int MarcaId { get; set; }
 
-    public double? ModeloId { get; set; }
+    public int ModeloId { get; set; }
 }

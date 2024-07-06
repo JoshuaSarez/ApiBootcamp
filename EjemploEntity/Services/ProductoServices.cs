@@ -3,12 +3,15 @@ using EjemploEntity.Models;
 using Microsoft.EntityFrameworkCore;
 using System.Data;
 using EjemploEntity.DTOs;
+using EjemploEntity.Utilitarios;
 
 namespace EjemploEntity.Services
 {
     public class ProductoServices : IProducto
     {
         private readonly VentasContext _context;
+        private ControlError Log = new ControlError();
+
         public ProductoServices(VentasContext context) 
         {
             this._context = context;
@@ -57,7 +60,8 @@ namespace EjemploEntity.Services
             catch (Exception ex)
             {
                 respuesta.Cod = "999";
-                respuesta.Mensaje = $"Se presento un error:  {ex.Message}";
+                respuesta.Mensaje = $"Se presento un error comunicase con el departamento de sistemas ";
+                Log.LogErrorMethods("ProductoServices", "GetListaProductos", ex.Message);
             }
 
             return respuesta;
@@ -81,8 +85,8 @@ namespace EjemploEntity.Services
             catch (Exception ex)
             {
                 respuesta.Cod = "999";
-                respuesta.Mensaje = $"Se presento un error:  {ex.Message}";
-                //throw;
+                respuesta.Mensaje = $"Se presento un error comunicase con el departamento de sistemas ";
+                Log.LogErrorMethods("ProductoServices", "PostProducto", ex.Message);
             }
             return respuesta;
         }
@@ -102,8 +106,8 @@ namespace EjemploEntity.Services
             catch (Exception ex)
             {
                 respuesta.Cod = "999";
-                respuesta.Mensaje = $"Se presento un error: {ex.Message}";
-                //throw;
+                respuesta.Mensaje = $"Se presento un error comunicase con el departamento de sistemas ";
+                Log.LogErrorMethods("ProductoServices", "PutProducto", ex.Message);
             }
             return respuesta;
         }

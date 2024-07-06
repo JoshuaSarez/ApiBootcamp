@@ -1,5 +1,6 @@
 ﻿using EjemploEntity.Interface;
 using EjemploEntity.Models;
+using EjemploEntity.Utilitarios;
 using Microsoft.EntityFrameworkCore;
 
 namespace EjemploEntity.Services
@@ -8,6 +9,7 @@ namespace EjemploEntity.Services
     {
         //INYECCION DE DEPENDENCIA
         private readonly VentasContext _context;
+        private ControlError Log = new ControlError();
 
         public CatalogoService(VentasContext context)
         {
@@ -26,7 +28,8 @@ namespace EjemploEntity.Services
             catch (Exception ex)
             {
                 respuesta.Cod = "999";
-                respuesta.Mensaje = $"Se presento un error en el Metodo: GetCategoria  {ex.Message}";
+                respuesta.Mensaje = $"Se presento un error comunicase con el departamento de sistemas ";
+                Log.LogErrorMethods("CatalogoService", "GetCategoria", ex.Message);
             }
             return respuesta;
         }
@@ -43,7 +46,8 @@ namespace EjemploEntity.Services
             catch (Exception ex)
             {
                 respuesta.Cod = "999";
-                respuesta.Mensaje = $"Se presento un error en el Metodo: GetMarca  {ex.Message}";
+                respuesta.Mensaje = $"Se presento un error comunicase con el departamento de sistemas ";
+                Log.LogErrorMethods("CatalogoService", "GetMarca", ex.Message);
             }
             return respuesta;
         }
@@ -60,7 +64,8 @@ namespace EjemploEntity.Services
             catch (Exception ex)
             {
                 respuesta.Cod = "999";
-                respuesta.Mensaje = $"Se presento un error en el Metodo: GetModelo  {ex.Message}";
+                respuesta.Mensaje = $"Se presento un error comunicase con el departamento de sistemas ";
+                Log.LogErrorMethods("CatalogoService", "GetModelo", ex.Message);
             }
             return respuesta;
         }
@@ -77,7 +82,8 @@ namespace EjemploEntity.Services
             catch (Exception ex)
             {
                 respuesta.Cod = "999";
-                respuesta.Mensaje = $"Se presento un error en el Metodo: GetSucursal  {ex.Message}";
+                respuesta.Mensaje = $"Se presento un error comunicase con el departamento de sistemas ";
+                Log.LogErrorMethods("CatalogoService", "GetSucursal", ex.Message);
             }
             return respuesta;
         }

@@ -1,5 +1,6 @@
 ﻿using EjemploEntity.Interface;
 using EjemploEntity.Models;
+using EjemploEntity.Utilitarios;
 using Microsoft.AspNetCore.Mvc;
 
 namespace EjemploEntity.Controllers
@@ -9,6 +10,7 @@ namespace EjemploEntity.Controllers
     public class VentaController : Controller
     {
         private readonly IVentas _ventas;
+        private ControlError Log = new ControlError();
 
         public VentaController(IVentas ventas)
         {
@@ -17,20 +19,67 @@ namespace EjemploEntity.Controllers
 
         [HttpGet]
         [Route("GetVentaCliente")]
-        public async Task<Respuesta> GetVentaCliente(string? numFact, string? fecha, string? vendedor, double? precio)
+        public async Task<Respuesta> GetVentaCliente(string? numFact, string? fecha, string? vendedor, double? precio, int clienteId)
         {
             var respuesta = new Respuesta();
             try
             {
-                respuesta = await _ventas.GetVentaCliente(numFact, fecha, vendedor, precio);
+                respuesta = await _ventas.GetVentaCliente(numFact, fecha, vendedor, precio, clienteId);
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-
-                throw;
+                Log.LogErrorMethods("VentaController", "GetVentaCliente",ex.Message);
             }
             return respuesta;
         }
 
+        [HttpPost]
+        [Route("PostVenta")]
+        public async Task<Respuesta> PostVenta([FromBody] Venta venta)
+        {
+            var respuesta = new Respuesta();
+            try
+            {
+                respuesta = await _ventas.PostVenta(venta);
+            }
+            catch (Exception ex)
+            {
+                Log.LogErrorMethods("VentaController", "PostVenta", ex.Message);
+            }
+            return respuesta;
+        }
+
+        //[HttpPut]
+        //[Route("PutVenta")]
+        //public async Task<Respuesta> PutVenta([FromBody] Venta venta)
+        //{
+        //    var respuesta = new Respuesta();
+        //    try
+        //    {
+        //        respuesta = await _ventas.PutVenta(venta);
+        //    }
+        //    catch (Exception)
+        //    {
+
+        //        throw;
+        //    }
+        //    return respuesta;
+        //}
+
+        [HttpGet]
+        [Route("GetVenta")]
+        public async Task<Respuesta> GetVenta()
+        {
+            var respuesta = new Respuesta();
+            try
+            {
+                respuesta = await _ventas.GetVenta();
+            }
+            catch (Exception ex)
+            {
+                Log.LogErrorMethods("VentaController", "GetVenta", ex.Message);
+            }
+            return respuesta;
+        }
     }
 }

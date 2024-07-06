@@ -5,7 +5,7 @@ namespace EjemploEntity.Models;
 
 public partial class Cliente
 {
-    public double ClienteId { get; set; }
+    public int ClienteId { get; set; }
 
     public string? ClienteNombre { get; set; }
 

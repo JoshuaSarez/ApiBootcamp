@@ -1,5 +1,6 @@
 ﻿using EjemploEntity.Interface;
 using EjemploEntity.Models;
+using EjemploEntity.Utilitarios;
 using Microsoft.AspNetCore.Mvc;
 
 namespace EjemploEntity.Controllers
@@ -9,8 +10,8 @@ namespace EjemploEntity.Controllers
     public class ClienteController : Controller
 	{
 		private readonly ICliente _cliente;
-
-		public ClienteController (ICliente cliente)
+        private ControlError Log = new ControlError();
+        public ClienteController (ICliente cliente)
 		{
 			this._cliente = cliente;
 		}
@@ -23,15 +24,11 @@ namespace EjemploEntity.Controllers
 			try
 			{
                 respuesta = await _cliente.GetListaClientes(clienteId, clienteName, identificacion);
-                //respuesta.Cod = "000";
-                //respuesta.Data = await _cliente.GetListaClientes(clienteId, clienteName, identificacion);
-                //respuesta.Mensaje = "OK";
             }
-            catch (Exception)
+            catch (Exception ex)
 			{
-
-				throw;
-			}
+                Log.LogErrorMethods("ClienteController", "GetListaClientes", ex.Message);
+            }
 			return respuesta;
         }
 

@@ -4,11 +4,13 @@ namespace EjemploEntity.DTOs
 {
     public class VentaDTO
     {
-        public double? IdFactura { get; set; }
+        public int? IdFactura { get; set; }
 
         public string? NumFact { get; set; }
 
         public DateTime? FechaHora { get; set; }
+
+        public int ClienteId { get; set; }
 
         public string? ClienteDetalle { get; set; }
 
@@ -28,7 +30,7 @@ namespace EjemploEntity.DTOs
 
         public double? Precio { get; set; }
 
-        public double? Unidades { get; set; }
+        public int? Unidades { get; set; }
 
         public int? Estado { get; set; }
     }
