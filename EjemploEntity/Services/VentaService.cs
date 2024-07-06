@@ -3,12 +3,13 @@ using EjemploEntity.Interface;
 using EjemploEntity.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-
+using EjemploEntity.Utilitarios;
 namespace EjemploEntity.Services
 {
     public class VentaService : IVentas
     {
 		private readonly VentasContext _context;
+        private ControlError Log = new ControlError();
 
 		public VentaService (VentasContext context)
 		{
@@ -93,7 +94,7 @@ namespace EjemploEntity.Services
 			catch (Exception ex)
 			{
                 respuesta.Cod = "999";
-                respuesta.Mensaje = $"Se presento un error:  {ex.Message}";
+                Log.LogErrorMethods("GetVentaCliente", ex.Message);
                 
 			}
 			return respuesta;
@@ -118,7 +119,8 @@ namespace EjemploEntity.Services
             catch (Exception ex)
             {
                 respuesta.Cod = "999";
-                respuesta.Mensaje = $"Se presento un error:  {ex.Message}"; ;
+                respuesta.Mensaje = $"Se presento un error comunicase con el departamento de sistemas ";
+                Log.LogErrorMethods("PostVenta", ex.Message);
             }
             return respuesta;
         }
@@ -156,7 +158,8 @@ namespace EjemploEntity.Services
             catch (Exception ex)
             {
                 respuesta.Cod = "999";
-                respuesta.Mensaje = $"Se presento un error:  {ex.Message}";
+                respuesta.Mensaje = $"Se presento un error comunicase con el departamento de sistemas ";
+                Log.LogErrorMethods("GetVenta", ex.Message);
             }
             return respuesta;
         }
