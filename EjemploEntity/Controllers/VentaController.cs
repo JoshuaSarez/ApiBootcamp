@@ -19,7 +19,7 @@ namespace EjemploEntity.Controllers
 
         [HttpGet]
         [Route("GetVentaCliente")]
-        public async Task<Respuesta> GetVentaCliente(string? numFact, string? fecha, string? vendedor, double? precio, int clienteId)
+        public async Task<Respuesta> GetVentaCliente(string? numFact, string? fecha, int vendedor, double precio, int clienteId)
         {
             var respuesta = new Respuesta();
             try

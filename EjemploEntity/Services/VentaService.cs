@@ -4,6 +4,7 @@ using EjemploEntity.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using EjemploEntity.Utilitarios;
+using Microsoft.EntityFrameworkCore.Storage.ValueConversion.Internal;
 namespace EjemploEntity.Services
 {
     public class VentaService : IVentas
@@ -17,7 +18,7 @@ namespace EjemploEntity.Services
 		}
 
 
-        public async Task<Respuesta> GetVentaCliente(string? numFact, string? fecha, string? vendedor, double? precio, int clienteId)
+        public async Task<Respuesta> GetVentaCliente(string? numFact, string? fecha, int vendedor, double precio, int clienteId)
         {
 			var respuesta = new Respuesta();
 			try
@@ -45,47 +46,49 @@ namespace EjemploEntity.Services
                                                     MarcaDetalle = ma.MarcaNombre,
                                                     SucursalDetalle = su.SucursalNombre,
                                                     Caja = cj.CajaDescripcion,
-                                                    Vendedor = ve.VendedorDescripcion,//
+                                                    vendedorId = ve.VendedorId,//para poder filtrar con vendedor se necesita con id tmb
+                                                   Vendedor = ve.VendedorDescripcion,
                                                     Precio = v.Precio,//
                                                     Unidades = v.Unidades,
                                                     Estado = v.Estado,//
-                                                });
+                                                }).AsQueryable();
                 respuesta.Cod = "000";
                 //1
-                if ((numFact != null || numFact != "0") && (fecha != null || fecha != "0") && (vendedor != null || vendedor != "0") && precio != 0 && clienteId != 0)
+                if ((numFact != null || numFact != "0") && (fecha != null || fecha != "0") && vendedor !=0 && precio != 0 && clienteId != 0)
                 {
-                    query = query.Where(x => x.NumFact.Equals(numFact) && x.FechaHora.Equals(fecha) && x.Vendedor.Equals(vendedor) && x.Precio == precio);// && x.Estado == 1);
+                    query = query.Where(x => x.NumFact.Equals(numFact) && x.FechaHora.Equals(fecha) && x.vendedorId == vendedor && x.Precio == precio);// && x.Estado == 1);
                 }
                 //2
-                else if ((numFact != null || numFact != "0") && (fecha == null || fecha == "0") && (vendedor == null || vendedor == "0") && precio == 0 && clienteId == 0)
-                {
-                    query = query.Where(x => x.NumFact.Equals(numFact));// && x.Estado == 1);
-                }
-                //3
-                else if ((numFact == null || numFact == "0") && (fecha != null || fecha != "0") && (vendedor == null || vendedor == "0") && precio == 0 && clienteId == 0)
-                {
-                    query = query.Where(x => x.FechaHora.Equals(fecha));// && x.Estado == 1);
-                }
-                //4
-                else if ((numFact == null || numFact == "0") && (fecha == null || fecha == "0") && (vendedor != null || vendedor != "0") && precio == 0 && clienteId == 0)
-                {
-                    query = query.Where(x => x.Vendedor.Equals(vendedor));// && x.Estado == 1);
-                }
-                //5
-                else if ((numFact == null || numFact == "0") && (fecha == null || fecha == "0") && (vendedor == null || vendedor == "0") && precio != 0 && clienteId == 0)
-                {
-                    query = query.Where(x => x.Precio == precio);// && x.Estado == 1);
-                }
-                //6
-                else if ((numFact == null || numFact == "0") && (fecha == null || fecha == "0") && (vendedor == null || vendedor == "0") && precio == 0 && clienteId != 0)
-                {
-                    query = query.Where(x => x.ClienteId == clienteId);
-                }
-                //7
-                else if ((numFact == null || numFact == "0") && (fecha == null || fecha == "0") && (vendedor == null || vendedor == "0") && precio == 0 && clienteId == 0)
+                else if ((numFact == null || numFact == "0") && (fecha == null || fecha == "0") && vendedor == 0 && precio == 0 && clienteId == 0)
                 {
                     query = query.Where(x => x.Estado == 1);
                 }
+                //3
+                else if ((numFact != null || numFact != "0") && (fecha == null || fecha == "0") && vendedor == 0 && precio == 0 && clienteId == 0)
+                {
+                    query = query.Where(x => x.NumFact.Equals(numFact));// && x.Estado == 1);
+                }
+                //4
+                else if ((numFact == null || numFact == "0") && (fecha != null || fecha != "0") && vendedor == 0 && precio == 0 && clienteId == 0)
+                {
+                    query = query.Where(x => x.FechaHora.ToString().Equals(fecha));// && x.Estado == 1);
+                }
+                //5
+                else if ((numFact == null || numFact == "0") && (fecha == null || fecha == "0") && vendedor != 0 && precio == 0 && clienteId == 0)
+                {
+                    query = query.Where(x => x.vendedorId == vendedor);// && x.Estado == 1);
+                }
+                //6
+                else if ((numFact == null || numFact == "0") && (fecha == null || fecha == "0") && vendedor == 0 && precio != 0 && clienteId == 0)
+                {
+                    query = query.Where(x => x.Precio == precio);// && x.Estado == 1);
+                }
+                //7
+                else if ((numFact == null || numFact == "0") && (fecha == null || fecha == "0") && vendedor == 0 && precio == 0 && clienteId != 0)
+                {
+                    query = query.Where(x => x.ClienteId == clienteId);
+                }
+                
 
                 respuesta.Data = await query.ToListAsync();
                 respuesta.Mensaje = "OK";

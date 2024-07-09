@@ -26,6 +26,8 @@ namespace EjemploEntity.DTOs
 
         public string? Caja { get; set; }
 
+        public int vendedorId { get; set; }
+
         public string? Vendedor { get; set; }
 
         public double? Precio { get; set; }
