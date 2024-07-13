@@ -128,20 +128,22 @@ namespace EjemploEntity.Services
             return respuesta;
         }
 
-        //public async Task<Respuesta> PutVenta(Venta venta)
-        //{
-        //    var respuesta = new Respuesta();
-        //    try
-        //    {
-                
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        respuesta.Cod = "999";
-        //        respuesta.Mensaje = $"Se presento un error:  {ex.Message}";
-        //    }
-        //    return respuesta;
-        //}
+        public async Task<Respuesta> PutVenta(Venta venta)
+        {
+            var respuesta = new Respuesta();
+            try
+            {
+                _context.Ventas.Update(venta);
+                await _context.SaveChangesAsync();
+            }
+            catch (Exception ex)
+            {
+                respuesta.Cod = "999";
+                respuesta.Mensaje = $"Se presento un error comunicase con el departamento de sistemas ";
+                Log.LogErrorMethods("VentaService", "PutVenta", ex.Message);
+            }
+            return respuesta;
+        }
         public async Task<Respuesta> GetVenta()
         {
             var respuesta = new Respuesta();

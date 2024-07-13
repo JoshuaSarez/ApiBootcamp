@@ -37,26 +37,21 @@ public partial class VentasContext : DbContext
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
-
+        //=> optionsBuilder.UseSqlServer("Server=ODALIS\\SQLEXPRESS;Database=VENTAS;Integrated Security=True;TrustServerCertificate=True");
     }
-//#warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see https://go.microsoft.com/fwlink/?LinkId=723263.
-//        => optionsBuilder.UseSqlServer("Server=ODALIS\\SQLEXPRESS;Database=VENTAS;Integrated Security=True;TrustServerCertificate=True");
+
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder.Entity<Caja>(entity =>
         {
-            entity
-                .HasNoKey()
-                .ToTable("CAJA");
+            entity.ToTable("CAJA");
 
+            entity.Property(e => e.CajaId).HasColumnName("CAJA_ID");
             entity.Property(e => e.CajaDescripcion)
                 .HasMaxLength(50)
                 .IsUnicode(false)
                 .HasColumnName("CAJA_DESCRIPCION");
-            entity.Property(e => e.CajaId)
-                .ValueGeneratedOnAdd()
-                .HasColumnName("CAJA_ID");
             entity.Property(e => e.Estado)
                 .HasMaxLength(1)
                 .IsUnicode(false)
@@ -66,11 +61,13 @@ public partial class VentasContext : DbContext
 
         modelBuilder.Entity<Categorium>(entity =>
         {
-            entity
-                .HasNoKey()
-                .ToTable("CATEGORIA");
+            entity.HasKey(e => e.CategId);
 
-            entity.Property(e => e.CategId).HasColumnName("CATEG_ID");
+            entity.ToTable("CATEGORIA");
+
+            entity.Property(e => e.CategId)
+                .ValueGeneratedNever()
+                .HasColumnName("CATEG_ID");
             entity.Property(e => e.CategNombre)
                 .HasMaxLength(255)
                 .HasColumnName("CATEG_NOMBRE");
@@ -84,11 +81,11 @@ public partial class VentasContext : DbContext
 
         modelBuilder.Entity<Ciudad>(entity =>
         {
-            entity
-                .HasNoKey()
-                .ToTable("CIUDAD");
+            entity.ToTable("CIUDAD");
 
-            entity.Property(e => e.CiudadId).HasColumnName("CIUDAD_ID");
+            entity.Property(e => e.CiudadId)
+                .ValueGeneratedNever()
+                .HasColumnName("CIUDAD_ID");
             entity.Property(e => e.CiudadNombre)
                 .HasMaxLength(255)
                 .HasColumnName("CIUDAD_NOMBRE");
@@ -102,12 +99,12 @@ public partial class VentasContext : DbContext
 
         modelBuilder.Entity<Cliente>(entity =>
         {
-            entity
-                .HasNoKey()
-                .ToTable("CLIENTE");
+            entity.ToTable("CLIENTE");
 
+            entity.Property(e => e.ClienteId)
+                .ValueGeneratedNever()
+                .HasColumnName("CLIENTE_ID");
             entity.Property(e => e.Cedula).HasColumnName("CEDULA");
-            entity.Property(e => e.ClienteId).HasColumnName("CLIENTE_ID");
             entity.Property(e => e.ClienteNombre)
                 .HasMaxLength(255)
                 .HasColumnName("CLIENTE_NOMBRE");
@@ -121,17 +118,17 @@ public partial class VentasContext : DbContext
 
         modelBuilder.Entity<Marca>(entity =>
         {
-            entity
-                .HasNoKey()
-                .ToTable("MARCA");
+            entity.ToTable("MARCA");
 
+            entity.Property(e => e.MarcaId)
+                .ValueGeneratedNever()
+                .HasColumnName("MARCA_ID");
             entity.Property(e => e.Estado)
                 .HasMaxLength(255)
                 .HasColumnName("ESTADO");
             entity.Property(e => e.FechaHoraReg)
                 .HasColumnType("datetime")
                 .HasColumnName("FECHA_HORA_REG");
-            entity.Property(e => e.MarcaId).HasColumnName("MARCA_ID");
             entity.Property(e => e.MarcaNombre)
                 .HasMaxLength(255)
                 .HasColumnName("MARCA_NOMBRE");
@@ -139,10 +136,11 @@ public partial class VentasContext : DbContext
 
         modelBuilder.Entity<Modelo>(entity =>
         {
-            entity
-                .HasNoKey()
-                .ToTable("MODELO");
+            entity.ToTable("MODELO");
 
+            entity.Property(e => e.ModeloId)
+                .ValueGeneratedNever()
+                .HasColumnName("MODELO_ID");
             entity.Property(e => e.Estado)
                 .HasMaxLength(255)
                 .HasColumnName("ESTADO");
@@ -152,14 +150,15 @@ public partial class VentasContext : DbContext
             entity.Property(e => e.ModeloDescripción)
                 .HasMaxLength(255)
                 .HasColumnName("MODELO_DESCRIPCIÓN");
-            entity.Property(e => e.ModeloId).HasColumnName("MODELO_ID");
         });
 
         modelBuilder.Entity<Producto>(entity =>
         {
             entity.ToTable("PRODUCTO");
 
-            entity.Property(e => e.ProductoId).HasColumnName("PRODUCTO_ID");
+            entity.Property(e => e.ProductoId)
+                .ValueGeneratedNever()
+                .HasColumnName("PRODUCTO_ID");
             entity.Property(e => e.CategId).HasColumnName("CATEG_ID");
             entity.Property(e => e.Estado)
                 .HasMaxLength(255)
@@ -173,14 +172,27 @@ public partial class VentasContext : DbContext
             entity.Property(e => e.ProductoDescrip)
                 .HasMaxLength(255)
                 .HasColumnName("PRODUCTO_DESCRIP");
+
+            entity.HasOne(d => d.Categ).WithMany(p => p.Productos)
+                .HasForeignKey(d => d.CategId)
+                .HasConstraintName("FK_CATEGORIA_PRODUCTO");
+
+            entity.HasOne(d => d.Marca).WithMany(p => p.Productos)
+                .HasForeignKey(d => d.MarcaId)
+                .HasConstraintName("FK_MARCA_PRODUCTO");
+
+            entity.HasOne(d => d.Modelo).WithMany(p => p.Productos)
+                .HasForeignKey(d => d.ModeloId)
+                .HasConstraintName("FK_MODELO_PRODUCTO");
         });
 
         modelBuilder.Entity<Sucursal>(entity =>
         {
-            entity
-                .HasNoKey()
-                .ToTable("SUCURSAL");
+            entity.ToTable("SUCURSAL");
 
+            entity.Property(e => e.SucursalId)
+                .ValueGeneratedNever()
+                .HasColumnName("SUCURSAL_ID");
             entity.Property(e => e.CiudadId).HasColumnName("CIUDAD_ID");
             entity.Property(e => e.Estado)
                 .HasMaxLength(255)
@@ -188,18 +200,23 @@ public partial class VentasContext : DbContext
             entity.Property(e => e.FechaHoraReg)
                 .HasColumnType("datetime")
                 .HasColumnName("FECHA_HORA_REG");
-            entity.Property(e => e.SucursalId).HasColumnName("SUCURSAL_ID");
             entity.Property(e => e.SucursalNombre)
                 .HasMaxLength(255)
                 .HasColumnName("SUCURSAL_NOMBRE");
+
+            entity.HasOne(d => d.Ciudad).WithMany(p => p.Sucursals)
+                .HasForeignKey(d => d.CiudadId)
+                .OnDelete(DeleteBehavior.Cascade)
+                .HasConstraintName("FK_CIUDAD_SUCURSAL");
         });
 
         modelBuilder.Entity<Vendedor>(entity =>
         {
-            entity
-                .HasNoKey()
-                .ToTable("VENDEDOR");
+            entity.ToTable("VENDEDOR");
 
+            entity.Property(e => e.VendedorId)
+                .ValueGeneratedNever()
+                .HasColumnName("VENDEDOR_ID");
             entity.Property(e => e.Estado)
                 .HasMaxLength(1)
                 .IsUnicode(false)
@@ -209,27 +226,28 @@ public partial class VentasContext : DbContext
                 .HasMaxLength(50)
                 .IsUnicode(false)
                 .HasColumnName("VENDEDOR_DESCRIPCION");
-            entity.Property(e => e.VendedorId).HasColumnName("VENDEDOR_ID");
         });
 
         modelBuilder.Entity<Venta>(entity =>
         {
-            entity
-                .HasNoKey()
-                .ToTable("VENTAS");
+            entity.HasKey(e => e.IdFactura);
+
+            entity.ToTable("VENTAS");
 
             entity.HasIndex(e => e.FechaHora, "INDICE1");
 
-            entity.Property(e => e.CajaId)
-                .HasMaxLength(255)
-                .HasColumnName("CAJA_ID");
+            entity.Property(e => e.IdFactura)
+                .ValueGeneratedNever()
+                .HasColumnName("ID_FACTURA");
+            entity.Property(e => e.CajaId).HasColumnName("CAJA_ID");
             entity.Property(e => e.CategId).HasColumnName("CATEG_ID");
-            entity.Property(e => e.ClienteId).HasColumnName("CLIENTE_ID");
+            entity.Property(e => e.ClienteId)
+                .ValueGeneratedOnAdd()
+                .HasColumnName("CLIENTE_ID");
             entity.Property(e => e.Estado).HasColumnName("ESTADO");
             entity.Property(e => e.FechaHora)
                 .HasColumnType("datetime")
                 .HasColumnName("FECHA_HORA");
-            entity.Property(e => e.IdFactura).HasColumnName("ID_FACTURA");
             entity.Property(e => e.MarcaId).HasColumnName("MARCA_ID");
             entity.Property(e => e.ModeloId).HasColumnName("MODELO_ID");
             entity.Property(e => e.NumFact)
@@ -239,13 +257,47 @@ public partial class VentasContext : DbContext
             entity.Property(e => e.ProductoId).HasColumnName("PRODUCTO_ID");
             entity.Property(e => e.SucursalId).HasColumnName("SUCURSAL_ID");
             entity.Property(e => e.Unidades).HasColumnName("UNIDADES");
-            entity.Property(e => e.VendedorId)
-                .HasMaxLength(255)
-                .HasColumnName("VENDEDOR_ID");
+            entity.Property(e => e.VendedorId).HasColumnName("VENDEDOR_ID");
 
-            entity.HasOne(d => d.Producto).WithMany()
+            entity.HasOne(d => d.Caja).WithMany(p => p.Venta)
+                .HasForeignKey(d => d.CajaId)
+                .OnDelete(DeleteBehavior.Cascade)
+                .HasConstraintName("FK_CAJAVENTAS");
+
+            entity.HasOne(d => d.Categ).WithMany(p => p.Venta)
+                .HasForeignKey(d => d.CategId)
+                .OnDelete(DeleteBehavior.Cascade)
+                .HasConstraintName("FK_CATEGORIAVENTAS");
+
+            entity.HasOne(d => d.Cliente).WithMany(p => p.Venta)
+                .HasForeignKey(d => d.ClienteId)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK_CLIENTEVENTAS");
+
+            entity.HasOne(d => d.Marca).WithMany(p => p.Venta)
+                .HasForeignKey(d => d.MarcaId)
+                .OnDelete(DeleteBehavior.Cascade)
+                .HasConstraintName("FK_MARCA_VENTAS");
+
+            entity.HasOne(d => d.Modelo).WithMany(p => p.Venta)
+                .HasForeignKey(d => d.ModeloId)
+                .OnDelete(DeleteBehavior.Cascade)
+                .HasConstraintName("FK_MODELO_VENTAS");
+
+            entity.HasOne(d => d.Producto).WithMany(p => p.Venta)
                 .HasForeignKey(d => d.ProductoId)
+                .OnDelete(DeleteBehavior.Cascade)
                 .HasConstraintName("FK_PRODUCTO_VENTAS");
+
+            entity.HasOne(d => d.Sucursal).WithMany(p => p.Venta)
+                .HasForeignKey(d => d.SucursalId)
+                .OnDelete(DeleteBehavior.Cascade)
+                .HasConstraintName("FK_SUCURSAL_VENTAS");
+
+            entity.HasOne(d => d.Vendedor).WithMany(p => p.Venta)
+                .HasForeignKey(d => d.VendedorId)
+                .OnDelete(DeleteBehavior.Cascade)
+                .HasConstraintName("FK_VENDEDORVENTAS");
         });
 
         OnModelCreatingPartial(modelBuilder);

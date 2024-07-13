@@ -72,7 +72,7 @@ namespace EjemploEntity.Services
             var respuesta = new Respuesta();
             try
             {
-                var query = _context.Productos.OrderByDescending(x=> x.ProductoId).Select(x=> x.ProductoId).FirstOrDefault(); // primero se ordena (order by) luego se seelecciona la columna y luego se escoge el valor que qeremos en este caso el primer
+                var query = _context.Productos.OrderByDescending(x=> x.ProductoId).Select(x=> x.ProductoId).FirstOrDefault(); // primero se ordena (OrderByDescending) luego se seelecciona la columna(x=> x.ProductoId) y luego se escoge el valor que queremos en este caso el primer (Select(x=> x.ProductoId).FirstOrDefault())
                 producto.ProductoId = query + 1;
                 producto.FechaHoraReg = DateTime.Now;
 
@@ -96,8 +96,8 @@ namespace EjemploEntity.Services
             var respuesta = new Respuesta();
             try
             {
-
-                _context.Productos.Update(producto);
+                //bool comparar = _context.Productos.Where(x => x.ProductoId == producto.ProductoId).Any();
+                _context.Productos.Update(producto);//Actualiza
                 await _context.SaveChangesAsync(); //commit
 
                 respuesta.Cod = "000";

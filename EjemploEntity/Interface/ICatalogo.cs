@@ -1,4 +1,5 @@
 ﻿using EjemploEntity.Models;
+using Microsoft.AspNetCore.Mvc;
 
 namespace EjemploEntity.Interface
 {
@@ -8,5 +9,15 @@ namespace EjemploEntity.Interface
         Task<Respuesta> GetMarca();
         Task<Respuesta> GetModelo();
         Task<Respuesta> GetSucursal();
+        Task<Respuesta> GetCiudad();
+        Task<Respuesta> GetCaja();
+        //Post
+        Task<Respuesta> PostCategoria(Categorium categoria);
+        Task<Respuesta> PostMarca(Marca marca);
+        Task<Respuesta> PostModelo(Modelo modelo);
+        Task<Respuesta> PostSucursal(Sucursal sucursal);
+        Task<Respuesta> PostCiudad(Ciudad ciudad);
+        Task<Respuesta> PostCaja(Caja caja);
+
     }
 }
