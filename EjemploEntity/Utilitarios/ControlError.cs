@@ -13,7 +13,7 @@ namespace EjemploEntity.Utilitarios
 
             try
             {
-                ruta = "C:\\Users\\bryan\\Desktop\\Bootcamp\\Archivos\\EntityFramework\\ProyectoIntegrador";
+                ruta = "C:\\Users\\bryan\\Desktop\\Bootcamp\\Archivos\\EntityFramework\\ProyectoIntegrador\\logs";
                 archivo = $"Log_{Fecha.ToString("dd-MM-yy")}";
 
                 if (!Directory.Exists(ruta)) 

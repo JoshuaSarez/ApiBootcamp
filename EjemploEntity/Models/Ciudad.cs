@@ -12,4 +12,6 @@ public partial class Ciudad
     public string? Estado { get; set; }
 
     public DateTime? FechaHoraReg { get; set; }
+
+    public virtual ICollection<Sucursal> Sucursals { get; set; } = new List<Sucursal>();
 }

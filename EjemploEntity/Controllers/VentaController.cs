@@ -49,22 +49,21 @@ namespace EjemploEntity.Controllers
             return respuesta;
         }
 
-        //[HttpPut]
-        //[Route("PutVenta")]
-        //public async Task<Respuesta> PutVenta([FromBody] Venta venta)
-        //{
-        //    var respuesta = new Respuesta();
-        //    try
-        //    {
-        //        respuesta = await _ventas.PutVenta(venta);
-        //    }
-        //    catch (Exception)
-        //    {
-
-        //        throw;
-        //    }
-        //    return respuesta;
-        //}
+        [HttpPut]
+        [Route("PutVenta")]
+        public async Task<Respuesta> PutVenta([FromBody] Venta venta)
+        {
+            var respuesta = new Respuesta();
+            try
+            {
+                respuesta = await _ventas.PutVenta(venta);
+            }
+            catch (Exception ex)
+            {
+                Log.LogErrorMethods("VentaController", "PutVenta", ex.Message);
+            }
+            return respuesta;
+        }
 
         [HttpGet]
         [Route("GetVenta")]
