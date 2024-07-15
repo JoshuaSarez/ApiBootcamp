@@ -32,22 +32,38 @@ namespace EjemploEntity.Controllers
 			return respuesta;
         }
 
-        //[HttpPost]
-        //[Route("PostCliente")]
+        [HttpPost]
+        [Route("PostCliente")]
 
-        //public async Task<Respuesta> PostCliente([FromBody] Cliente cliente)
-        //{
-        //    var respuesta = new Respuesta();
-        //    try
-        //    {
-        //        respuesta = await _cliente.PostCliente(cliente);
-        //    }
-        //    catch (Exception)
-        //    {
+        public async Task<Respuesta> PostCliente([FromBody] Cliente cliente)
+        {
+            var respuesta = new Respuesta();
+            try
+            {
+                respuesta = await _cliente.PostCliente(cliente);
+            }
+            catch (Exception ex)
+            {
+                Log.LogErrorMethods("ClienteController", "PostCliente", ex.Message);
+            }
+            return respuesta;
+        }
 
-        //        throw;
-        //    }
-        //    return respuesta;
-        //}
+        [HttpPost]
+        [Route("PutCliente")]
+
+        public async Task<Respuesta> PutCliente([FromBody] Cliente cliente)
+        {
+            var respuesta = new Respuesta();
+            try
+            {
+                respuesta = await _cliente.PutCliente(cliente);
+            }
+            catch (Exception ex)
+            {
+                Log.LogErrorMethods("ClienteController", "PutCliente", ex.Message);
+            }
+            return respuesta;
+        }
     }
 }

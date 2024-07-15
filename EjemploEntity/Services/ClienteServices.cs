@@ -58,19 +58,52 @@ namespace EjemploEntity.Services
 			return respuesta;
         }
 
-        //public Task<Respuesta> PostCliente(Cliente cliente)
-        //{
-        //    var respuesta = new Respuesta();
-        //    try
-        //    {
+        public async Task<Respuesta> PostCliente(Cliente cliente)
+        {
+            var respuesta = new Respuesta();
+            try
+            {
+                var query = _context.Clientes.OrderByDescending(x=> x.ClienteId).Select(x=> x.ClienteId).FirstOrDefault();
+                cliente.ClienteId = query + 1;
+                cliente.FechaHoraReg = DateTime.Now;
 
-        //    }
-        //    catch (Exception)
-        //    {
+                _context.Clientes.Add(cliente);
+                await _context.SaveChangesAsync();
 
-        //        throw;
-        //    }
-        //    return respuesta;
-        //}
+                respuesta.Cod = "000";
+                respuesta.Data = cliente;
+                respuesta.Mensaje = "Se inserto correctamente";
+
+            }
+            catch (Exception ex)
+            {
+                respuesta.Cod = "999";
+                respuesta.Mensaje = $"Se presento un error comunicase con el departamento de sistemas ";
+                Log.LogErrorMethods("ClienteServices", "PostCliente", ex.Message);
+            }
+            return respuesta;
+        }
+
+        public async Task<Respuesta> PutCliente(Cliente cliente)
+        {
+            var respuesta = new Respuesta();
+            try
+            {
+                _context.Clientes.Update(cliente);
+                await _context.SaveChangesAsync();
+
+                respuesta.Cod = "000";
+                respuesta.Data = cliente;
+                respuesta.Mensaje = "Se actualizo correctamente";
+
+            }
+            catch (Exception ex)
+            {
+                respuesta.Cod = "999";
+                respuesta.Mensaje = $"Se presento un error comunicase con el departamento de sistemas ";
+                Log.LogErrorMethods("ClienteServices", "PostCliente", ex.Message);
+            }
+            return respuesta;
+        }
     }
 }
