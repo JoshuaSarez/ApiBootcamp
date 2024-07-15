@@ -21,6 +21,8 @@ namespace EjemploEntity.Services
         public async Task<Respuesta> GetVentaCliente(string? numFact, string? fecha, int vendedor, double precio, int clienteId)
         {
 			var respuesta = new Respuesta();
+
+
 			try
 			{
                 IQueryable<VentaDTO> query = (from v in _context.Ventas

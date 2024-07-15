@@ -19,5 +19,15 @@ namespace EjemploEntity.Interface
         Task<Respuesta> PostCiudad(Ciudad ciudad);
         Task<Respuesta> PostCaja(Caja caja);
 
+        //PUT
+        Task<Respuesta> PutCategoria(Categorium categoria);
+        Task<Respuesta> PutMarca(Marca marca);
+        Task<Respuesta> PutModelo(Modelo modelo);
+        Task<Respuesta> PutSucursal(Sucursal sucursal);
+        Task<Respuesta> PutCiudad(Ciudad ciudad);
+        Task<Respuesta> PutCaja(Caja caja);
+
+        //DELETE
+        //Task<Respuesta> DeleteCategoria(int categoriaId);
     }
 }

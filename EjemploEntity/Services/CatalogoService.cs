@@ -124,6 +124,7 @@ namespace EjemploEntity.Services
             return respuesta;
         }
 
+        //POST
         public async Task<Respuesta> PostCategoria(Categorium categoria)
         {
             var respuesta = new Respuesta();
@@ -273,5 +274,136 @@ namespace EjemploEntity.Services
             }
             return respuesta;
         }
+
+        //PUT
+        public async Task<Respuesta> PutCategoria(Categorium categoria)
+        {
+            var respuesta = new Respuesta();
+            try
+            {
+                _context.Categoria.Update(categoria);
+                await _context.SaveChangesAsync();
+
+                respuesta.Cod = "000";
+                respuesta.Data = categoria;
+                respuesta.Mensaje = "Se Actualizo correctamente";
+            }
+            catch (Exception ex)
+            {
+                respuesta.Cod = "999";
+                respuesta.Mensaje = $"Se presento un error comunicase con el departamento de sistemas ";
+                Log.LogErrorMethods("CatalogoService", "PutCategoria", ex.Message);
+            }
+            return respuesta;
+        }
+
+        public async Task<Respuesta> PutMarca(Marca marca)
+        {
+            var respuesta = new Respuesta();
+            try
+            {
+                _context.Marcas.Update(marca);//se actualiza
+                await _context.SaveChangesAsync();//commit
+
+                respuesta.Cod = "000";
+                respuesta.Data = marca;
+                respuesta.Mensaje = "Se Actualizo correctamente";
+            }
+            catch (Exception ex)
+            {
+                respuesta.Cod = "999";
+                respuesta.Mensaje = $"Se presento un error comunicase con el departamento de sistemas ";
+                Log.LogErrorMethods("CatalogoService", "PutMarca", ex.Message);
+            }
+            return respuesta;
+        }
+
+        public async Task<Respuesta> PutModelo(Modelo modelo)
+        {
+            var respuesta = new Respuesta();
+            try
+            {
+                _context.Modelos.Update(modelo);//se actualiza
+                await _context.SaveChangesAsync();//commit
+
+                respuesta.Cod = "000";
+                respuesta.Data = modelo;
+                respuesta.Mensaje = "Se Actualizo correctamente";
+            }
+            catch (Exception ex)
+            {
+                respuesta.Cod = "999";
+                respuesta.Mensaje = $"Se presento un error comunicase con el departamento de sistemas ";
+                Log.LogErrorMethods("CatalogoService", "PutModelo", ex.Message);
+            }
+            return respuesta;
+        }
+
+        public async Task<Respuesta> PutSucursal(Sucursal sucursal)
+        {
+            var respuesta = new Respuesta();
+            try
+            {
+                _context.Sucursals.Update(sucursal);//se actualiza
+                await _context.SaveChangesAsync();//commit
+
+                respuesta.Cod = "000";
+                respuesta.Data = sucursal;
+                respuesta.Mensaje = "Se Actualizo correctamente";
+            }
+            catch (Exception ex)
+            {
+                respuesta.Cod = "999";
+                respuesta.Mensaje = $"Se presento un error comunicase con el departamento de sistemas ";
+                Log.LogErrorMethods("CatalogoService", "PutSucursal", ex.Message);
+            }
+            return respuesta;
+        }
+
+        public async Task<Respuesta> PutCiudad(Ciudad ciudad)
+        {
+            var respuesta = new Respuesta();
+            try
+            {
+                _context.Ciudads.Update(ciudad);//se actualiza
+                await _context.SaveChangesAsync();//commit
+
+                respuesta.Cod = "000";
+                respuesta.Data = ciudad;
+                respuesta.Mensaje = "Se Actualizo correctamente";
+            }
+            catch (Exception ex)
+            {
+                respuesta.Cod = "999";
+                respuesta.Mensaje = $"Se presento un error comunicase con el departamento de sistemas ";
+                Log.LogErrorMethods("CatalogoService", "PutCiudad", ex.Message);
+            }
+            return respuesta;
+        }
+
+        public async Task<Respuesta> PutCaja(Caja caja)
+        {
+            var respuesta = new Respuesta();
+            try
+            {
+                _context.Cajas.Update(caja);//se actualiza
+                await _context.SaveChangesAsync();//commit
+
+                respuesta.Cod = "000";
+                respuesta.Data = caja;
+                respuesta.Mensaje = "Se Actualizo correctamente";
+            }
+            catch (Exception ex)
+            {
+                respuesta.Cod = "999";
+                respuesta.Mensaje = $"Se presento un error comunicase con el departamento de sistemas ";
+                Log.LogErrorMethods("CatalogoService", "PutCaja", ex.Message);
+            }
+            return respuesta;
+        }
+
+        //DELETE
+
+
     }
 }

@@ -271,3 +271,4 @@ C:\Users\bryan\source\repos\EjemploEntity\ApiBootcamp\EjemploEntity\obj\Debug\ne
 C:\Users\bryan\source\repos\EjemploEntity\ApiBootcamp\EjemploEntity\obj\Debug\net8.0\EjemploEntity.pdb
 C:\Users\bryan\source\repos\EjemploEntity\ApiBootcamp\EjemploEntity\obj\Debug\net8.0\EjemploEntity.genruntimeconfig.cache
 C:\Users\bryan\source\repos\EjemploEntity\ApiBootcamp\EjemploEntity\obj\Debug\net8.0\ref\EjemploEntity.dll
+C:\Users\bryan\source\repos\EjemploEntity\ApiBootcamp\EjemploEntity\bin\Debug\net8.0\Newtonsoft.Json.dll

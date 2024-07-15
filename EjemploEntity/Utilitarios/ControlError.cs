@@ -21,7 +21,7 @@ namespace EjemploEntity.Utilitarios
                     Directory.CreateDirectory(ruta);
                 }
 
-                StreamWriter writ = new StreamWriter($"{ruta}\\{archivo}");
+                StreamWriter writ = new StreamWriter($"{ruta}\\{archivo}", true);
                 writ.WriteLine($"Se presento una novedad en la clase: {clase} en el metodo: {metodo}, con el sigiente error: {error}");
                 writ.Close();
 

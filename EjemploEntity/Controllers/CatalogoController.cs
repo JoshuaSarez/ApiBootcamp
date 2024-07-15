@@ -218,6 +218,124 @@ namespace EjemploEntity.Controllers
         }
 
         //PUT
+        [HttpPut]
+        [Route("PutCategoria")]
+        public async Task<Respuesta> PutCategoria([FromBody] Categorium categoria)
+        {
+            var respuesta = new Respuesta();
+            try
+            {
+                respuesta = await _catalogo.PutCategoria(categoria);
+
+            }
+            catch (Exception ex)
+            {
+                Log.LogErrorMethods("CatalogoController", "PutCategoria", ex.Message);
+            }
+            return respuesta;
+        }
+
+        [HttpPut]
+        [Route("PutMarca")]
+        public async Task<Respuesta> PutMarca([FromBody] Marca marca)
+        {
+            var respuesta = new Respuesta();
+            try
+            {
+                respuesta = await _catalogo.PutMarca(marca);
+
+            }
+            catch (Exception ex)
+            {
+                Log.LogErrorMethods("CatalogoController", "PutMarca", ex.Message);
+            }
+            return respuesta;
+        }
+
+        [HttpPut]
+        [Route("PutModelo")]
+        public async Task<Respuesta> PutModelo([FromBody] Modelo modelo)
+        {
+            var respuesta = new Respuesta();
+            try
+            {
+                respuesta = await _catalogo.PutModelo(modelo);
+
+            }
+            catch (Exception ex)
+            {
+                Log.LogErrorMethods("CatalogoController", "PutModelo", ex.Message);
+            }
+            return respuesta;
+        }
+
+        [HttpPut]
+        [Route("PutSucursal")]
+        public async Task<Respuesta> PutSucursal([FromBody] Sucursal sucursal)
+        {
+            var respuesta = new Respuesta();
+            try
+            {
+                respuesta = await _catalogo.PutSucursal(sucursal);
+
+            }
+            catch (Exception ex)
+            {
+                Log.LogErrorMethods("CatalogoController", "PutSucursal", ex.Message);
+            }
+            return respuesta;
+        }
+
+        [HttpPut]
+        [Route("PutCiudad")]
+        public async Task<Respuesta> PutCiudad([FromBody] Ciudad ciudad)
+        {
+            var respuesta = new Respuesta();
+            try
+            {
+                respuesta = await _catalogo.PutCiudad(ciudad);
+
+            }
+            catch (Exception ex)
+            {
+                Log.LogErrorMethods("CatalogoController", "PutCiudad", ex.Message);
+            }
+            return respuesta;
+        }
+
+        [HttpPut]
+        [Route("PutCaja")]
+        public async Task<Respuesta> PutCaja([FromBody] Caja caja)
+        {
+            var respuesta = new Respuesta();
+            try
+            {
+                respuesta = await _catalogo.PutCaja(caja);
+
+            }
+            catch (Exception ex)
+            {
+                Log.LogErrorMethods("CatalogoController", "PutCaja", ex.Message);
+            }
+            return respuesta;
+        }
+
+        //DELETE
+        //[HttpPut]
+        //[Route("DeleteCategoria")]
+        //public async Task<Respuesta> DeleteCategoria([FromBody] int categoriaId)
+        //{
+        //    var respuesta = new Respuesta();
+        //    try
+        //    {
+        //        respuesta = await _catalogo.DeleteCategoria(categoriaId);
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        Log.LogErrorMethods("CatalogoController", "DeleteCategoria", ex.Message);
+        //    }
+        //    return respuesta;
+        //}
 
     }
 }
